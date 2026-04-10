@@ -2,124 +2,107 @@
 
 **Numbers up top:**
 - **Accuracy**: ~80% (8/10 invoices process successfully with retry logic)
-- **Latency**: ~70-100 seconds per invoice (depends on image complexity)
-- **Cost**: **$0/mo** - uses local Ollama vision model (free)
+- **Latency**: ~70-100 seconds per invoice
+- **Cost**: **$0/mo** - uses local Ollama vision model
 - **Time Saved**: ~3-5 min per invoice vs manual data entry
-
-## Live Demo
-
-Try it instantly on Google Colab: **[Open in Colab](https://colab.research.google.com/github/YOUR_USERNAME/invoice-json-extractor/blob/main/5_invoice_extractor.ipynb)**
-
-## 90-Second Walkthrough
-
-Watch how it works: **[YouTube Video](https://www.youtube.com/watch?v=YOUR_VIDEO_ID)**
 
 ---
 
 Automated pipeline to extract structured JSON from invoice images using local Ollama vision model + Pydantic validation + math checks.
 
+## Live Demo
+
+Try it instantly: **[Open in Google Colab](https://colab.research.google.com/github/Aditya7615/Invoice-to-JSON-Extractor/blob/clean-branch/5_invoice_extractor.ipynb)**
+
 ## Features
 
-- **Local, private processing** (no API costs, data never leaves your machine)
-- **Strict schema validation** with math consistency checks (line total, tax, grand total)
-- **Groq-powered error explanations** for failed extractions
-- **Retry logic** for robust extraction (3 attempts per invoice)
-- **Multiple date format support** (ISO, US, European, written)
-- **Batch processing** for multiple images
+- **Local & Private** - Data never leaves your machine
+- **Zero API Costs** - Uses Ollama's free local vision model
+- **Strict Validation** - Pydantic schema enforcement
+- **Math Consistency** - Verifies line totals, tax, and grand totals
+- **Error Explanations** - Groq AI explains validation failures
+- **Retry Logic** - 3 attempts per invoice for robustness
+- **Multi-format Dates** - ISO, US, European, written formats
 
 ## Quick Start
 
-### 1. Setup Environment
+### 1. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Ollama Vision Model
+### 2. Download Vision Model
 
 ```bash
 ollama pull llama3.2-vision
 ```
 
-### 3. Environment Variables
+### 3. Setup Environment
 
 ```bash
 cp .env.example .env
-# Edit .env and add your GROQ_API_KEY
+# Add your GROQ_API_KEY to .env (free at https://console.groq.com/keys)
 ```
 
-GROQ_API_KEY required for error explanations ([get one free](https://console.groq.com/keys)).
-
-### 4. Run Extraction
-
-Place invoice images in `dataset/`, then run:
+### 4. Run
 
 ```bash
 jupyter nbconvert --execute 5_invoice_extractor.ipynb
 ```
 
-Or convert to Python and run:
-
-```bash
-jupyter nbconvert --to python 5_invoice_extractor.ipynb
-python3 5_invoice_extractor.py
-```
-
-JSON outputs saved to `output/`.
-
-### 5. Run Tests
-
-```bash
-python3 test_extraction.py
-```
-
-### 6. Run Evaluations
-
-```bash
-python3 evals/run_eval.py
-```
+JSON outputs appear in `output/`.
 
 ## Project Structure
 
 ```
-.
-├── dataset/              # Input invoice images (*.jpg, *.png)
-├── output/              # Extracted JSON invoices
-├── evals/               # Evaluation test suite
-│   ├── test_cases.json  # 35 test cases
-│   └── run_eval.py      # Evaluation script
-├── 5_invoice_extractor.ipynb  # Main extraction notebook
-├── test_extraction.py   # Schema validation tests
-├── requirements.txt     # Python dependencies
-├── .env.example        # Environment template
-└── .gitignore          # Git ignore rules
-```
-
-## Architecture
-
-```
-Invoice Image → Ollama Vision (llama3.2-vision) → JSON Extraction
-                                                      ↓
-                                           Pydantic Validation
-                                                      ↓
-                                           Math Consistency Check
-                                                      ↓
-                                           Groq Error Explanation (if failed)
+Invoice-to-JSON-Extractor/
+├── dataset/                    # Place invoice images here (*.jpg, *.png)
+├── output/                     # Extracted JSON files
+├── evals/
+│   ├── test_cases.json         # 33 evaluation test cases
+│   └── run_eval.py             # Run: python3 evals/run_eval.py
+├── 5_invoice_extractor.ipynb   # Main extraction pipeline
+├── test_extraction.py          # Schema validation tests
+├── requirements.txt            # Dependencies
+├── .env.example                # Environment template
+└── .gitignore                  # Ignores .env, output/, __pycache__/
 ```
 
 ## How It Works
 
-1. **Vision Model** (`llama3.2-vision`): Reads invoice image, extracts raw data as JSON
-2. **Retry Logic**: Up to 3 attempts with different JSON extraction strategies
-3. **Data Cleaning**: Normalizes dates, currency strings, tax rates, negative values
-4. **Schema Validation**: Pydantic enforces required fields, types, and constraints
-5. **Math Checks**: Verifies line totals, tax calculations, and grand totals
-6. **Error Explanation**: Groq LLM explains validation failures in plain English
+```
+Invoice Image
+    ↓
+Ollama Vision (llama3.2-vision) - Extracts raw JSON
+    ↓
+Data Cleaning - Dates, currencies, tax rates, negative values
+    ↓
+Pydantic Validation - Schema enforcement
+    ↓
+Math Consistency Check - Line totals, tax, grand total
+    ↓
+Groq Error Explanation - Plain English errors (if failed)
+```
 
-## Expected Output
+## Evaluation Results
 
-Each invoice produces a JSON file like:
+```bash
+$ python3 evals/run_eval.py
 
+✅ 33/33 tests passing (100%)
+- Invoice validation tests: 10
+- Date parsing tests: 4
+- Math consistency tests: 4
+- Validation edge cases: 8
+- Schema tests: 2
+```
+
+## Example Output
+
+**Input:** Invoice image
+
+**Output:** `output/invoice_01.json`
 ```json
 {
   "vendor_name": "ACME CORP",
@@ -140,29 +123,19 @@ Each invoice produces a JSON file like:
 
 ## Troubleshooting
 
-- **Vision model not found**: Run `ollama pull llama3.2-vision`
-- **Validation errors**: Check printed errors, the model may have misread the invoice
-- **Slow processing**: Normal - vision model runs locally on CPU/GPU
-- **Missing dependencies**: Run `pip install -r requirements.txt`
+| Issue | Solution |
+|-------|----------|
+| `Vision model not found` | Run `ollama pull llama3.2-vision` |
+| `GROQ_API_KEY not set` | Add key to `.env` file |
+| Slow processing | Normal - vision model runs locally |
+| Validation errors | Check output errors - model may have misread invoice |
 
-## GitHub Setup
+## Tech Stack
 
-```bash
-git init
-git add .
-git commit -m "Invoice extractor v1.0"
-git branch -M main
-git remote add origin https://github.com/YOUR_USERNAME/invoice-json-extractor.git
-git push -u origin main
-```
-
-## Contributing
-
-1. Fork the repo
-2. Add test cases to `evals/test_cases.json`
-3. Run `python3 evals/run_eval.py` to verify
-4. Submit a PR
+- [Ollama](https://ollama.ai/) - Local vision model
+- [Pydantic](https://docs.pydantic.dev/) - Schema validation
+- [Groq](https://groq.com/) - Error explanations
 
 ---
 
-Built with [Ollama](https://ollama.ai/) + [Pydantic](https://docs.pydantic.dev/) + [Groq](https://groq.com/)
+Star ⭐ if this helped!
