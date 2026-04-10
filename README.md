@@ -12,7 +12,7 @@ Automated pipeline to extract structured JSON from invoice images using local Ol
 
 ## Live Demo
 
-Try it instantly: **[Open in Google Colab](https://colab.research.google.com/github/Aditya7615/Invoice-to-JSON-Extractor/blob/clean-branch/5_invoice_extractor.ipynb)**
+Try it instantly: **[Open in Google Colab](https://colab.research.google.com/github/Aditya7615/Invoice-to-JSON-Extractor/blob/clean-branch/invoice_extractor.ipynb)**
 
 ## Features
 
@@ -48,7 +48,7 @@ cp .env.example .env
 ### 4. Run
 
 ```bash
-jupyter nbconvert --execute 5_invoice_extractor.ipynb
+jupyter nbconvert --execute invoice_extractor.ipynb
 ```
 
 JSON outputs appear in `output/`.
@@ -62,7 +62,7 @@ Invoice-to-JSON-Extractor/
 ├── evals/
 │   ├── test_cases.json         # 33 evaluation test cases
 │   └── run_eval.py             # Run: python3 evals/run_eval.py
-├── 5_invoice_extractor.ipynb   # Main extraction pipeline
+├── invoice_extractor.ipynb   # Main extraction pipeline
 ├── test_extraction.py          # Schema validation tests
 ├── requirements.txt            # Dependencies
 ├── .env.example                # Environment template
