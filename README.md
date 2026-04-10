@@ -10,10 +10,6 @@
 
 Automated pipeline to extract structured JSON from invoice images using local Ollama vision model + Pydantic validation + math checks.
 
-## Live Demo
-
-Try it instantly: **[Open in Google Colab](https://colab.research.google.com/github/Aditya7615/Invoice-to-JSON-Extractor/blob/clean-branch/invoice_extractor.ipynb)**
-
 ## Features
 
 - **Local & Private** - Data never leaves your machine
