@@ -1,0 +1,44 @@
+{
+  "vendor_name": "CONSTRUCTION MATERIALS",
+  "customer_name": "Builder Pro",
+  "invoice_number": "INVOICE_10",
+  "invoice_date": "2024-01-15",
+  "subtotal": 8915.0,
+  "tax_rate": 0.07,
+  "tax_amount": 624.05,
+  "total_amount": 9689.05,
+  "line_items": [
+    {
+      "description": "Steel Beam",
+      "quantity": 25.0,
+      "unit_price": 189.0,
+      "amount": 4725.0
+    },
+    {
+      "description": "Cement Bag",
+      "quantity": 100.0,
+      "unit_price": 12.0,
+      "amount": 1200.0
+    },
+    {
+      "description": "Tools Set",
+      "quantity": 10.0,
+      "unit_price": 299.0,
+      "amount": 2990.0
+    }
+  ],
+  "currency": "USD",
+  "due_date": null,
+  "shipping_amount": null,
+  "discount_amount": null,
+  "vendor_address": null,
+  "vendor_phone": null,
+  "vendor_email": null,
+  "vendor_tax_id": null,
+  "customer_address": null,
+  "customer_email": null,
+  "payment_terms": null,
+  "payment_method": null,
+  "bank_details": null,
+  "notes": null
+}

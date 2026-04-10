@@ -1,0 +1,534 @@
+{
+  "test_suite_name": "Invoice Extraction Evaluation Suite",
+  "version": "1.0",
+  "total_cases": 35,
+  "description": "Evaluation test cases for invoice JSON extraction pipeline",
+  "test_cases": [
+    {
+      "id": "eval_001",
+      "invoice_file": "invoice_01.jpg",
+      "expected": {
+        "vendor_name": "ACME CORP",
+        "customer_name": "Tech Solutions",
+        "invoice_number": "INVOICE_01",
+        "invoice_date": "2024-01-15",
+        "subtotal": 1523.15,
+        "tax_rate": 0.08,
+        "tax_amount": 121.85,
+        "total_amount": 1645.0,
+        "currency": "USD",
+        "line_items": [
+          {"description": "Widget A", "quantity": 10, "unit_price": 25.99, "amount": 259.90},
+          {"description": "Widget B", "quantity": 5, "unit_price": 49.99, "amount": 249.95},
+          {"description": "Gadget X", "quantity": 20, "unit_price": 50.66, "amount": 1013.20}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "tax_amount == subtotal * tax_rate"]
+    },
+    {
+      "id": "eval_002",
+      "invoice_file": "invoice_02.jpg",
+      "expected": {
+        "vendor_name": "Global Supplies",
+        "customer_name": "Startup Inc",
+        "invoice_number": "02",
+        "invoice_date": "2024-01-15",
+        "subtotal": 5596.76,
+        "tax_rate": 0.08,
+        "tax_amount": 447.74,
+        "total_amount": 5994.5,
+        "currency": "USD",
+        "line_items": [
+          {"description": "Office Chair", "quantity": 10, "unit_price": 199.99, "amount": 1999.90},
+          {"description": "Standing Desk", "quantity": 5, "unit_price": 499.99, "amount": 2499.95},
+          {"description": "Monitor 27\"", "quantity": 8, "unit_price": 137.11, "amount": 1096.88}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "tax_amount == subtotal * tax_rate"]
+    },
+    {
+      "id": "eval_003",
+      "invoice_file": "invoice_03.jpg",
+      "expected": {
+        "vendor_name": "Office Depot",
+        "customer_name": "Tech Solutions",
+        "invoice_number": "INV-2024-003",
+        "invoice_date": "2024-01-20",
+        "subtotal": 845.50,
+        "tax_rate": 0.08,
+        "tax_amount": 67.64,
+        "total_amount": 913.14,
+        "currency": "USD",
+        "line_items": [
+          {"description": "Paper Ream", "quantity": 50, "unit_price": 7.99, "amount": 399.50},
+          {"description": "Pen Box", "quantity": 20, "unit_price": 12.50, "amount": 250.00},
+          {"description": "Stapler", "quantity": 10, "unit_price": 19.60, "amount": 196.00}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "tax_amount == subtotal * tax_rate"]
+    },
+    {
+      "id": "eval_004",
+      "invoice_file": "invoice_04.jpg",
+      "expected": {
+        "vendor_name": "Tech Supplies Co",
+        "customer_name": "Dev Corp",
+        "invoice_number": "TS-2024-004",
+        "invoice_date": "2024-01-22",
+        "subtotal": 2340.00,
+        "tax_rate": 0.08,
+        "tax_amount": 187.20,
+        "total_amount": 2527.20,
+        "currency": "USD",
+        "discount_amount": 50.0,
+        "line_items": [
+          {"description": "Keyboard", "quantity": 10, "unit_price": 79.00, "amount": 790.00},
+          {"description": "Mouse", "quantity": 10, "unit_price": 45.00, "amount": 450.00},
+          {"description": "USB Hub", "quantity": 20, "unit_price": 55.00, "amount": 1100.00}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "discount_amount >= 0"]
+    },
+    {
+      "id": "eval_005",
+      "invoice_file": "invoice_05.jpg",
+      "expected": {
+        "vendor_name": "Cloud Services Inc",
+        "customer_name": "Dev Team",
+        "invoice_number": "INVOICE_05",
+        "invoice_date": "2024-01-25",
+        "subtotal": 124.88,
+        "tax_rate": 0.08,
+        "tax_amount": 9.99,
+        "total_amount": 185.37,
+        "currency": "USD",
+        "shipping_amount": 50.50,
+        "line_items": [
+          {"description": "Cloud Storage 1TB", "quantity": 1, "unit_price": 99.99, "amount": 99.99},
+          {"description": "Support Hours", "quantity": 1, "unit_price": 24.89, "amount": 24.89}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "shipping_amount >= 0"]
+    },
+    {
+      "id": "eval_006",
+      "invoice_file": "invoice_06.jpg",
+      "expected": {
+        "vendor_name": "Furniture World",
+        "customer_name": "Office Plus",
+        "invoice_number": "FW-2024-006",
+        "invoice_date": "2024-02-01",
+        "subtotal": 4500.00,
+        "tax_rate": 0.0825,
+        "tax_amount": 371.25,
+        "total_amount": 4871.25,
+        "currency": "USD",
+        "line_items": [
+          {"description": "Executive Desk", "quantity": 5, "unit_price": 600.00, "amount": 3000.00},
+          {"description": "Filing Cabinet", "quantity": 10, "unit_price": 150.00, "amount": 1500.00}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "tax_rate <= 1"]
+    },
+    {
+      "id": "eval_007",
+      "invoice_file": "invoice_07.jpg",
+      "expected": {
+        "vendor_name": "Print Solutions",
+        "customer_name": "Marketing Agency",
+        "invoice_number": "PS-2024-007",
+        "invoice_date": "2024-02-05",
+        "subtotal": 1899.00,
+        "tax_rate": 0.08,
+        "tax_amount": 151.92,
+        "total_amount": 2050.92,
+        "currency": "USD",
+        "discount_amount": 0,
+        "line_items": [
+          {"description": "Business Cards", "quantity": 5000, "unit_price": 0.05, "amount": 250.00},
+          {"description": "Brochures", "quantity": 1000, "unit_price": 1.20, "amount": 1200.00},
+          {"description": "Flyers", "quantity": 2000, "unit_price": 0.2245, "amount": 449.00}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "discount_amount >= 0"]
+    },
+    {
+      "id": "eval_008",
+      "invoice_file": "invoice_08.jpg",
+      "expected": {
+        "vendor_name": "Medical Supplies Co",
+        "customer_name": "Health Plus",
+        "invoice_number": "INVOICE_08",
+        "invoice_date": "2024-02-10",
+        "subtotal": 560.00,
+        "tax_rate": 0.08,
+        "tax_amount": 44.80,
+        "total_amount": 604.80,
+        "currency": "USD",
+        "line_items": [
+          {"description": "Nitrile Gloves Box", "quantity": 20, "unit_price": 12.00, "amount": 240.00},
+          {"description": "Face Masks", "quantity": 30, "unit_price": 8.00, "amount": 240.00},
+          {"description": "Hand Sanitizer", "quantity": 20, "unit_price": 4.00, "amount": 80.00}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "tax_amount == subtotal * tax_rate"]
+    },
+    {
+      "id": "eval_009",
+      "invoice_file": "invoice_09.jpg",
+      "expected": {
+        "vendor_name": "IT Services LLC",
+        "customer_name": "Data Corp",
+        "invoice_number": "IT-2024-009",
+        "invoice_date": "2024-02-15",
+        "subtotal": 7500.00,
+        "tax_rate": 0.0875,
+        "tax_amount": 656.25,
+        "total_amount": 8156.25,
+        "currency": "USD",
+        "line_items": [
+          {"description": "Server Setup", "quantity": 3, "unit_price": 1500.00, "amount": 4500.00},
+          {"description": "Network Config", "quantity": 2, "unit_price": 1000.00, "amount": 2000.00},
+          {"description": "On-site Support", "quantity": 10, "unit_price": 100.00, "amount": 1000.00}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "tax_rate <= 1"]
+    },
+    {
+      "id": "eval_010",
+      "invoice_file": "invoice_10.jpg",
+      "expected": {
+        "vendor_name": "CONSTRUCTION MATERIALS",
+        "customer_name": "Builder Pro",
+        "invoice_number": "CM-2024-010",
+        "invoice_date": "2024-02-20",
+        "subtotal": 8975.00,
+        "tax_rate": 0.0795,
+        "tax_amount": 713.61,
+        "total_amount": 9538.61,
+        "currency": "USD",
+        "shipping_amount": 250.00,
+        "line_items": [
+          {"description": "Cement Bag", "quantity": 100, "unit_price": 15.00, "amount": 1500.00},
+          {"description": "Steel Beam", "quantity": 50, "unit_price": 89.50, "amount": 4475.00},
+          {"description": "Lumber 2x4", "quantity": 200, "unit_price": 15.00, "amount": 3000.00}
+        ]
+      },
+      "validation_rules": ["line_items[0].amount == quantity * unit_price", "shipping_amount >= 0"]
+    },
+    {
+      "id": "eval_date_001",
+      "description": "Test date parsing - ISO format",
+      "date_formats": {
+        "invoice_date": "2024-03-15"
+      },
+      "expected_parse": "2024-03-15"
+    },
+    {
+      "id": "eval_date_002",
+      "description": "Test date parsing - US format MM/DD/YYYY",
+      "date_formats": {
+        "invoice_date": "03/15/2024"
+      },
+      "expected_parse": "2024-03-15"
+    },
+    {
+      "id": "eval_date_003",
+      "description": "Test date parsing - Month Day, Year format",
+      "date_formats": {
+        "invoice_date": "March 15, 2024"
+      },
+      "expected_parse": "2024-03-15"
+    },
+    {
+      "id": "eval_date_004",
+      "description": "Test date parsing - European format DD/MM/YYYY",
+      "date_formats": {
+        "invoice_date": "15/03/2024"
+      },
+      "expected_parse": "2024-03-15"
+    },
+    {
+      "id": "eval_math_001",
+      "description": "Math consistency - exact match",
+      "line_items": [
+        {"description": "Item A", "quantity": 5, "unit_price": 10.00, "amount": 50.00}
+      ],
+      "subtotal": 50.00,
+      "tax_rate": 0.08,
+      "tax_amount": 4.00,
+      "total_amount": 54.00,
+      "should_pass_math": true
+    },
+    {
+      "id": "eval_math_002",
+      "description": "Math consistency - shipping included",
+      "line_items": [
+        {"description": "Item B", "quantity": 3, "unit_price": 100.00, "amount": 300.00}
+      ],
+      "subtotal": 300.00,
+      "tax_rate": 0.08,
+      "tax_amount": 24.00,
+      "shipping_amount": 15.00,
+      "total_amount": 339.00,
+      "should_pass_math": true
+    },
+    {
+      "id": "eval_math_003",
+      "description": "Math consistency - discount applied",
+      "line_items": [
+        {"description": "Item C", "quantity": 2, "unit_price": 500.00, "amount": 1000.00}
+      ],
+      "subtotal": 1000.00,
+      "tax_rate": 0.08,
+      "tax_amount": 80.00,
+      "discount_amount": 50.00,
+      "total_amount": 1030.00,
+      "should_pass_math": true
+    },
+    {
+      "id": "eval_math_004",
+      "description": "Math consistency - tax rate > 1 should be normalized",
+      "line_items": [
+        {"description": "Item D", "quantity": 1, "unit_price": 1000.00, "amount": 1000.00}
+      ],
+      "subtotal": 1000.00,
+      "tax_rate": 8.0,
+      "tax_amount": 80.00,
+      "total_amount": 1080.00,
+      "should_normalize_tax_rate": true,
+      "should_pass_math": true
+    },
+    {
+      "id": "eval_validation_001",
+      "description": "Required field missing - vendor_name",
+      "data": {
+        "customer_name": "Test",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 100.00,
+        "tax_rate": 0.08,
+        "tax_amount": 8.00,
+        "total_amount": 108.00,
+        "line_items": [{"description": "Test", "quantity": 1, "unit_price": 100.00, "amount": 100.00}]
+      },
+      "should_fail": true,
+      "expected_error_field": "vendor_name"
+    },
+    {
+      "id": "eval_validation_002",
+      "description": "Line item amount mismatch",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 110.00,
+        "tax_rate": 0.08,
+        "tax_amount": 8.80,
+        "total_amount": 118.80,
+        "line_items": [{"description": "Test", "quantity": 10, "unit_price": 10.00, "amount": 99.00}]
+      },
+      "should_fail": true,
+      "expected_error_field": "line_items"
+    },
+    {
+      "id": "eval_validation_003",
+      "description": "Negative discount should be clamped to 0",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 100.00,
+        "tax_rate": 0.08,
+        "tax_amount": 8.00,
+        "total_amount": 108.00,
+        "discount_amount": -25.00,
+        "line_items": [{"description": "Test", "quantity": 1, "unit_price": 100.00, "amount": 100.00}]
+      },
+      "should_clamp_discount": true,
+      "expected_discount": 0.0
+    },
+    {
+      "id": "eval_validation_004",
+      "description": "Currency string parsing - $ symbol",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": "100.00",
+        "tax_rate": 0.08,
+        "tax_amount": "8.00",
+        "total_amount": "108.00",
+        "line_items": [{"description": "Test", "quantity": 1, "unit_price": 100.00, "amount": 100.00}]
+      },
+      "should_parse_strings": true
+    },
+    {
+      "id": "eval_validation_005",
+      "description": "Currency string parsing - with commas",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": "1,234.56",
+        "tax_rate": 0.08,
+        "tax_amount": "98.76",
+        "total_amount": "1,333.32",
+        "line_items": [{"description": "Test", "quantity": 1, "unit_price": 1234.56, "amount": 1234.56}]
+      },
+      "should_parse_strings": true
+    },
+    {
+      "id": "eval_edge_001",
+      "description": "Zero quantity should fail",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 0.00,
+        "tax_rate": 0.08,
+        "tax_amount": 0.00,
+        "total_amount": 0.00,
+        "line_items": [{"description": "Test", "quantity": 0, "unit_price": 100.00, "amount": 0.00}]
+      },
+      "should_fail": true,
+      "expected_error_field": "line_items"
+    },
+    {
+      "id": "eval_edge_002",
+      "description": "Negative unit price should fail",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": -100.00,
+        "tax_rate": 0.08,
+        "tax_amount": -8.00,
+        "total_amount": -108.00,
+        "line_items": [{"description": "Test", "quantity": 1, "unit_price": -100.00, "amount": -100.00}]
+      },
+      "should_fail": true,
+      "expected_error_field": "line_items"
+    },
+    {
+      "id": "eval_edge_003",
+      "description": "Empty line items should fail",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 0.00,
+        "tax_rate": 0.08,
+        "tax_amount": 0.00,
+        "total_amount": 0.00,
+        "line_items": []
+      },
+      "should_fail": true,
+      "expected_error_field": "line_items"
+    },
+    {
+      "id": "eval_edge_004",
+      "description": "Tax rate > 1 should fail without normalization",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 100.00,
+        "tax_rate": 8.0,
+        "tax_amount": 8.00,
+        "total_amount": 108.00,
+        "line_items": [{"description": "Test", "quantity": 1, "unit_price": 100.00, "amount": 100.00}]
+      },
+      "note": "With normalization (divide by 100), this should pass. Without, should fail."
+    },
+    {
+      "id": "eval_edge_005",
+      "description": "Very small tax rate",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 10000.00,
+        "tax_rate": 0.0001,
+        "tax_amount": 1.00,
+        "total_amount": 10001.00,
+        "line_items": [{"description": "Test", "quantity": 1, "unit_price": 10000.00, "amount": 10000.00}]
+      },
+      "should_pass": true
+    },
+    {
+      "id": "eval_edge_006",
+      "description": "Many line items (stress test)",
+      "line_item_count": 50,
+      "subtotal": 5000.00,
+      "tax_rate": 0.08,
+      "tax_amount": 400.00,
+        "total_amount": 5400.00,
+        "should_pass": true
+    },
+    {
+      "id": "eval_edge_007",
+      "description": "Unicode in vendor name",
+      "data": {
+        "vendor_name": "Café Möbel & Sons GmbH",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 100.00,
+        "tax_rate": 0.08,
+        "tax_amount": 8.00,
+        "total_amount": 108.00,
+        "line_items": [{"description": "Café Table", "quantity": 1, "unit_price": 100.00, "amount": 100.00}]
+      },
+      "should_pass": true
+    },
+    {
+      "id": "eval_edge_008",
+      "description": "Special characters in description",
+      "data": {
+        "vendor_name": "Test Vendor",
+        "customer_name": "Test Customer",
+        "invoice_number": "INV001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 299.99,
+        "tax_rate": 0.08,
+        "tax_amount": 24.00,
+        "total_amount": 323.99,
+        "line_items": [{"description": "Product #123-B (Special & Co.)", "quantity": 1, "unit_price": 299.99, "amount": 299.99}]
+      },
+      "should_pass": true
+    },
+    {
+      "id": "eval_schema_001",
+      "description": "All optional fields present",
+      "include_all_optional": true,
+      "should_pass": true
+    },
+    {
+      "id": "eval_schema_002",
+      "description": "No optional fields (minimal valid)",
+      "include_all_optional": false,
+      "minimal_required": {
+        "vendor_name": "Minimal Corp",
+        "customer_name": "Client",
+        "invoice_number": "MIN001",
+        "invoice_date": "2024-01-01",
+        "subtotal": 100.00,
+        "tax_rate": 0.08,
+        "tax_amount": 8.00,
+        "total_amount": 108.00,
+        "line_items": [{"description": "Item", "quantity": 1, "unit_price": 100.00, "amount": 100.00}]
+      },
+      "should_pass": true
+    }
+  ]
+}

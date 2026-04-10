@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Global Supplies",
+  "customer_name": "Startup Inc",
+  "invoice_number": "02",
+  "invoice_date": "2024-01-15",
+  "subtotal": 5495.0,
+  "tax_rate": 0.1,
+  "tax_amount": 549.5,
+  "total_amount": 5994.5,
+  "line_items": [
+    {
+      "description": "Laptop",
+      "quantity": 5.0,
+      "unit_price": 999.0,
+      "amount": 4995.0
+    },
+    {
+      "description": "Mouse",
+      "quantity": 5.0,
+      "unit_price": 25.0,
+      "amount": 125.0
+    },
+    {
+      "description": "Keyboard",
+      "quantity": 5.0,
+      "unit_price": 75.0,
+      "amount": 375.0
+    }
+  ],
+  "currency": "USD",
+  "due_date": null,
+  "shipping_amount": null,
+  "discount_amount": null,
+  "vendor_address": null,
+  "vendor_phone": null,
+  "vendor_email": null,
+  "vendor_tax_id": null,
+  "customer_address": null,
+  "customer_email": null,
+  "payment_terms": null,
+  "payment_method": null,
+  "bank_details": null,
+  "notes": null
+}

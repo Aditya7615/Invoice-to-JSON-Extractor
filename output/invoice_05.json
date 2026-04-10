@@ -1,0 +1,44 @@
+{
+  "vendor_name": "Cloud Services Inc.",
+  "customer_name": "Dev Team",
+  "invoice_number": "INVOICE_05",
+  "invoice_date": "2024-01-15",
+  "subtotal": 174.88,
+  "tax_rate": 0.06,
+  "tax_amount": 10.49,
+  "total_amount": 185.37,
+  "line_items": [
+    {
+      "description": "Cloud Storage (1TB)",
+      "quantity": 12.0,
+      "unit_price": 9.99,
+      "amount": 119.88
+    },
+    {
+      "description": "Compute Hours",
+      "quantity": 100.0,
+      "unit_price": 0.05,
+      "amount": 5.0
+    },
+    {
+      "description": "API Calls",
+      "quantity": 50000.0,
+      "unit_price": 0.0,
+      "amount": 0.0
+    }
+  ],
+  "currency": "USD",
+  "due_date": null,
+  "shipping_amount": null,
+  "discount_amount": null,
+  "vendor_address": null,
+  "vendor_phone": null,
+  "vendor_email": null,
+  "vendor_tax_id": null,
+  "customer_address": null,
+  "customer_email": null,
+  "payment_terms": "Net 30",
+  "payment_method": "Wire Transfer",
+  "bank_details": null,
+  "notes": null
+}
